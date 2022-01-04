@@ -46,6 +46,7 @@ def get_video_frame_details(file_name):
 
 def detect_face_multiprocessing(worker_i):
 		
+		torch.set_num_threads(1)
 		# initialize the process group
 		# torch.distributed.init_process_group("gloo", rank=worker_i, world_size=mp.cpu_count())
 		print(f"worker #{worker_i} spawned")
@@ -125,7 +126,7 @@ if __name__ == '__main__':
 				pass
 
 		"""
-		torch.set_num_threads(1)
+		# torch.set_num_threads(1)
 		
 		file_name = "../test57.mp4"
 		output_file_name = "test57_result.mp4"
