@@ -1,3 +1,5 @@
+# __main__.py
+
 import cv2
 import numpy as np
 import glob
@@ -6,42 +8,18 @@ import importlib
 import pathlib
 import shutil
 import os
-# import multiprocessing as mp
 import subprocess
 import time
 import torch.multiprocessing as mp
 import torch
 import dsfd
 import dsfd.face_detection
+import utils
+import argparse
 
+def main():
+		pass
 
-def combine_output_files(num_workers, output_file_name):
-		print("combinging output files...")
-		# Create a list of output files and store the file names in a txt file
-		list_of_output_files = ["output_{}.mp4".format(i) for i in range(num_workers)]
-		with open("list_of_output_files.txt", "w") as f:
-				for t in list_of_output_files:
-						f.write("file {} \n".format(t))
-
-		# use ffmpeg to combine the video output files
-		ffmpeg_cmd = "ffmpeg -y -loglevel error -f concat -safe 0 -i list_of_output_files.txt -vcodec copy " + output_file_name
-		subprocess.Popen(ffmpeg_cmd, shell=True).wait()
-
-		# Remove the temperory output files
-		for f in list_of_output_files:
-				os.remove(f)
-		os.remove("list_of_output_files.txt")
-
-
-def get_video_frame_details(file_name):
-		cap = cv2.VideoCapture(file_name)
-		width, height = (
-						int(cap.get(cv2.CAP_PROP_FRAME_WIDTH)),
-						int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
-		)
-		frame_count = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
-		fps = int(cap.get(cv2.CAP_PROP_FPS))
-		return width, height, frame_count, fps
 
 
 def detect_face_multiprocessing(worker_i):
@@ -117,34 +95,22 @@ def detect_face_multiprocessing(worker_i):
 
 
 if __name__ == '__main__':
-		# torch.multiprocessing.set_start_method('spawn')
 		torch.multiprocessing.set_start_method('spawn', force=True)
-		"""
-		try:
-				mp.set_start_method('spawn')
-		except RuntimeError:
-				pass
-
-		"""
-		# torch.set_num_threads(1)
 		
 		file_name = "../test57.mp4"
 		output_file_name = "test57_result.mp4"
 		width, height, frame_count, fps = get_video_frame_details(file_name)
 		print(f"Video frame count = {frame_count}")
 		print(f"Width = {width}, Height = {height}, FPS = {fps}")
-		# num_workers = mp.cpu_count()
 		num_workers = 12 
 		print("Number of CPU: " + str(num_workers))
 		frame_jump_unit =  frame_count // (num_workers)
 		print(f"frame_jump_unit:		{frame_jump_unit}")
-		# num_workers = mp.cpu_count()
 		frame_jump_unit =  frame_count // num_workers
 		print(f"Total number of workers:	{num_workers}")
 		start_time = time.time()
 		
 		# Paralle the execution of a function across multiple input values
-		# mp.set_start_method('spawn')
 		with mp.Pool(processes=num_workers) as p:
 				print(p)
 				p.map(detect_face_multiprocessing, range(num_workers))
