@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="550" height="auto" src="https://github.com/blancai/super8/blob/main/super8_3.jpg?raw=true" style="border-radius: 5%;">
+  <img width="550" height="auto" src="https://github.com/blancai/super8/blob/main/super8_2.JPG?raw=true" style="border-radius: 10%;">
 </p>
 
 # super8
