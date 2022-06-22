@@ -1,4 +1,7 @@
-![alt text](https://github.com/blancai/super8/blob/main/super8_2.JPG?raw=true)
+<p align="center">
+  <img width="460" height="300" src="https://github.com/blancai/super8/blob/main/super8_2.JPG?raw=true">
+</p>
+
 # super8
 super8 is an open-source toolset for analysis and editing of entertainment video.
 
