@@ -1,3 +1,4 @@
+![alt text](https://github.com/blancai/super8/blob/main/super8_2.JPG?raw=true)
 # super8
 super8 is an open-source toolset for analysis and editing of entertainment video.
 
